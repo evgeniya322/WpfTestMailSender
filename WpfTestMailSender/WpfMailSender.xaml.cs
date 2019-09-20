@@ -60,5 +60,10 @@ namespace WpfTestMailSender
             }
             MessageBox.Show("Работа завершена.");
         }
+
+        private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

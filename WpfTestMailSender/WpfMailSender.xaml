@@ -5,11 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTestMailSender"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Рассылка почты" Height="450" Width="800">
     <Grid>
-        <Button x:Name="btnSendEmail" Content="Отправить e-mail" HorizontalAlignment="Left" Margin="311,199,0,0" VerticalAlignment="Top" Width="189" Click="BtnSendEmail_Click"/>
-        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="311,166,0,0" VerticalAlignment="Top" Width="189"/>
-        <Label x:Name="lblPassword" Content="Введите пароль:" HorizontalAlignment="Left" Margin="311,140,0,0" VerticalAlignment="Top"/>
+        <Menu VerticalAlignment="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Открыть"/>
+                <MenuItem Header="Сохранить"/>
+                <Separator/>
+                <MenuItem Header="Выход" Click="ExitMenuItem_Click"/>
+            </MenuItem>
+            <MenuItem Header="Помощь">
+                <MenuItem Header="О программе" IsEnabled="False"/>
+            </MenuItem>
+        </Menu>
+        <Button x:Name="btnSendEmail" Content="Отправить e-mail" HorizontalAlignment="Left" Margin="452,352,0,0" VerticalAlignment="Top" Width="189" Click="BtnSendEmail_Click" Height="38"/>
+        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="59,113,0,0" VerticalAlignment="Top" Width="230"/>
+        <TextBlock x:Name="txblPassword" Text="Пароль:" HorizontalAlignment="Left" Margin="9,113,0,0" VerticalAlignment="Top"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="153" VerticalAlignment="Top" Width="311" Margin="0,18,0,0"/>
+        <TextBlock x:Name="txblEmail" HorizontalAlignment="Left" Margin="9,76,0,0" TextWrapping="Wrap" Text="E-mail:" VerticalAlignment="Top"/>
+        <TextBox x:Name="txbEmail" HorizontalAlignment="Left" Height="23" Margin="59,75,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="184,76,0,0" VerticalAlignment="Top" Width="105"/>
+        <Label x:Name="lblSender" Content="Отправитель:" HorizontalAlignment="Left" Margin="9,23,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="lblRecip" Content="Список получателей:" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <TextBlock x:Name="txblRecip" HorizontalAlignment="Left" Margin="10,334,0,0" TextWrapping="Wrap" Text="E-mail:" VerticalAlignment="Top"/>
+        <TextBox x:Name="txbRecip" HorizontalAlignment="Left" Height="23" Margin="59,333,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="230"/>
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="100" Margin="11,219,0,0" VerticalAlignment="Top" Width="278"/>
+        <Button x:Name="btnAdd" Content="Добавить" HorizontalAlignment="Left" Margin="214,370,0,0" VerticalAlignment="Top" Width="75"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="248" Margin="0,171,0,0" VerticalAlignment="Top" Width="311"/>
+        <TextBox x:Name="txbTopic" HorizontalAlignment="Left" Height="23" Margin="382,84,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="345"/>
+        <TextBox x:Name="txbMessage" HorizontalAlignment="Left" Height="171" Margin="382,148,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="345"/>
+        <Label x:Name="lblTopic" Content="Тема:" HorizontalAlignment="Left" Margin="382,55,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="lblMessage" Content="Сообщение:" HorizontalAlignment="Left" Margin="382,119,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
 
     </Grid>
 </Window>
