@@ -22,31 +22,56 @@ namespace WpfTestMailSender
     /// </summary>
     public partial class WpfMailSender : Window
     {
+        public static List<string> listStrMails;
+        public static List<string> mails;
+        string senderMail;
+        string smtp;
+        int port;
+
+
         public WpfMailSender()
         {
             InitializeComponent();
+           
+            
         }
 
         private void BtnSendEmail_Click(object sender, RoutedEventArgs e)
         {
-            List<string> listStrMails = new List<string> { "evgeniablinkova81@gmail.com" };  // Список email'ов //кому мы отправляем письмо
+            senderMail = txbEmail.Text + cbMail.SelectedItem;
             string strPassword = passwordBox.Password;  // для WinForms - string strPassword = passwordBox.Text;
             foreach (string mail in listStrMails)
             {
                 // Используем using, чтобы гарантированно удалить объект MailMessage после использования
-                using (MailMessage mm = new MailMessage("zbizk322@mail.ru", mail))
+                using (MailMessage mm = new MailMessage(senderMail, mail))
                 {
                     // Формируем письмо
-                    mm.Subject = "Привет из C#"; // Заголовок письма
-                    mm.Body = "Hello, world!";       // Тело письма
+                    mm.Subject = txbTopic.Text; // Заголовок письма
+                    mm.Body = txbMessage.Text;       // Тело письма
                     mm.IsBodyHtml = false;           // Не используем html в теле письма
                                                      // Авторизуемся на smtp-сервере и отправляем письмо
                                                      // Оператор using гарантирует вызов метода Dispose, даже если при вызове 
                                                      // методов в объекте происходит исключение.
-                    using (SmtpClient sc = new SmtpClient("smtp.mail.ru", 25))
+                    switch (cbMail.SelectedIndex)
+                    {
+                        case 0:
+                            smtp = "smtp.mail.ru";
+                            port = 25;
+                            break;
+                        case 1:
+                            smtp = "smtp.yandex.ru";
+                            port = 25;
+                            break;
+                        case 2:
+                            smtp = "smtp.gmail.com";
+                            port = 58;
+                            break;
+                    }
+
+                    using (SmtpClient sc = new SmtpClient(smtp, port))
                     {
                         sc.EnableSsl = true;
-                        sc.Credentials = new NetworkCredential("zbizk322@mail.ru", strPassword);
+                        sc.Credentials = new NetworkCredential(senderMail, strPassword);
                         try
                         {
                             sc.Send(mm);
@@ -65,5 +90,30 @@ namespace WpfTestMailSender
         {
             Close();
         }
+
+        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            listStrMails = new List<string>();
+            listStrMails.Add(txbRecip.Text);
+            listBoxRecip.Items.Add(txbRecip.Text);
+            txbRecip.Text = "";
+        }
+
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            listStrMails.RemoveAt(listBoxRecip.SelectedIndex);
+            listBoxRecip.Items.Remove(listBoxRecip.SelectedItem);
+            btnDelete.IsEnabled = false;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            mails = new List<string> { "@mail.ru", "@yandex.ru", "@gmail.com" };
+            foreach (var mail in mails)
+            {
+                cbMail.Items.Add(mail);
+            }
+        }
+
     }
 }
