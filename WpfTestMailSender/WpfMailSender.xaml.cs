@@ -93,7 +93,7 @@ namespace WpfTestMailSender
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            listStrMails = new List<string>();
+            
             listStrMails.Add(txbRecip.Text);
             listBoxRecip.Items.Add(txbRecip.Text);
             txbRecip.Text = "";
@@ -103,11 +103,11 @@ namespace WpfTestMailSender
         {
             listStrMails.RemoveAt(listBoxRecip.SelectedIndex);
             listBoxRecip.Items.Remove(listBoxRecip.SelectedItem);
-            btnDelete.IsEnabled = false;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            listStrMails = new List<string>();
             mails = new List<string> { "@mail.ru", "@yandex.ru", "@gmail.com" };
             foreach (var mail in mails)
             {
