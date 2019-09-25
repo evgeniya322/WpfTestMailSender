@@ -7,7 +7,9 @@
         xmlns:local="clr-namespace:WpfTestMailSender"
         xmlns:entityes="clr-namespace:MailSender.lib.Entityes;assembly=MailSender.lib"
         xmlns:l="clr-namespace:MailSender"
+        xmlns:db="clr-namespace:MailSender.lib.Data.Linq2SQL;assembly=MailSender.lib"
         xmlns:data="clr-namespace:MailSender.lib.Data;assembly=MailSender.lib"
+        xmlns:ctrl1="clr-namespace:WpfTestMailSender.Controls"
         mc:Ignorable="d"
         Title="Рассылка почты" Height="450" Width="800">
     
@@ -24,12 +26,21 @@
             </MenuItem>
         </Menu>
       <StatusBar DockPanel.Dock="Bottom">
-        <TextBlock>Готов!</TextBlock>
-      </StatusBar>
-      <TabControl>
+            <StatusBarItem DockPanel.Dock="Right">
+                <TextBlock>Готов!</TextBlock>
+            </StatusBarItem>
+            <StatusBarItem>
+                <ctrl1:TabItemSwicher Width="80" LeftButtonClick="TabItemSwicher_LeftButtonClick" RightButtonClick="TabItemSwicher_RightButtonClick" Height="25"/>
+
+            </StatusBarItem>
+        </StatusBar>
+        <TabControl Name="MainTabCantrol">
         <TabItem Header="Рассыльщик">
           <Grid>
-            <Grid.RowDefinitions>
+                    <Grid.Resources>
+                        <db:MailSenderDBDataContext x:Key="DataBase"/>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
               <RowDefinition Height="Auto"/>
               <RowDefinition/>
             </Grid.RowDefinitions>
@@ -92,16 +103,20 @@
                             </Button>
             </ToolBar>
           </ToolBarTray>
-            <DataGrid Grid.Row="1" AutoGenerateColumns="False">
+                    <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Recipients, Source={StaticResource DataBase}}"
+                              GridLinesVisibility="Vertical" 
+                              AlternatingRowBackground="LightGray"
+                              IsReadOnly="True" 
+                              HeadersVisibility="Column">
                <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID"/>
-                            <DataGridTextColumn Header="Имя"/>
-                            <DataGridTextColumn Header="Адрес" Width="*"/>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Адрес" Width="*" Binding="{Binding Adress}"/>
                         </DataGrid.Columns>
             </DataGrid>
           </Grid>
         </TabItem>
-      <TabItem Header="Планеровщик">
+      <TabItem Header="Планировщик">
                 <DockPanel>
                     <GroupBox Header="Управление">
                         <StackPanel>
