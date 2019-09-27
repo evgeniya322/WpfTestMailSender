@@ -9,6 +9,7 @@
         xmlns:db="clr-namespace:MailSender.lib.Data.Linq2SQL;assembly=MailSender.lib"
         xmlns:data="clr-namespace:MailSender.lib.Data;assembly=MailSender.lib"
         xmlns:ctrl1="clr-namespace:WpfTestMailSender.Controls"
+        xmlns:views="clr-namespace:WpfTestMailSender.Views"
         mc:Ignorable="d"
         Title="{Binding WindowTitle}" Height="450" Width="800"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}">
@@ -83,18 +84,17 @@
                             </Button>
             </ToolBar>
           </ToolBarTray>
-                    <DataGrid Grid.Row="1" AutoGenerateColumns="False" 
-                              ItemsSource="{Binding Recipients}"
-                              GridLinesVisibility="Vertical" 
-                              AlternatingRowBackground="LightGray"
-                              IsReadOnly="True" 
-                              HeadersVisibility="Column">
-               <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
-                            <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="Адрес" Width="*" Binding="{Binding Adress}"/>
-                        </DataGrid.Columns>
-            </DataGrid>
+                    <Grid Grid.Row="1">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                        <views:RecipientsView Grid.Column="0" Margin="5"/>
+                        <views:RecipientsEditor Grid.Column="1" Margin="5"/>
+                        <GridSplitter Grid.Column="1" Width="4" Background="Transparent"
+                                      VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
+                    </Grid>
           </Grid>
         </TabItem>
       <TabItem Header="Планировщик">
