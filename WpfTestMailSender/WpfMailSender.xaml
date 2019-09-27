@@ -10,7 +10,8 @@
         xmlns:data="clr-namespace:MailSender.lib.Data;assembly=MailSender.lib"
         xmlns:ctrl1="clr-namespace:WpfTestMailSender.Controls"
         mc:Ignorable="d"
-        Title="Рассылка почты" Height="450" Width="800">
+        Title="{Binding WindowTitle}" Height="450" Width="800"
+        DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}">
     
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -35,10 +36,7 @@
         </StatusBar>
         <TabControl Name="MainTabCantrol">
         <TabItem Header="Рассыльщик">
-          <Grid>
-                    <Grid.Resources>
-                        <db:MailSenderDBDataContext x:Key="DataBase"/>
-                    </Grid.Resources>
+                <Grid>
                     <Grid.RowDefinitions>
               <RowDefinition Height="Auto"/>
               <RowDefinition/>
@@ -85,7 +83,8 @@
                             </Button>
             </ToolBar>
           </ToolBarTray>
-                    <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Recipients, Source={StaticResource DataBase}}"
+                    <DataGrid Grid.Row="1" AutoGenerateColumns="False" 
+                              ItemsSource="{Binding Recipients}"
                               GridLinesVisibility="Vertical" 
                               AlternatingRowBackground="LightGray"
                               IsReadOnly="True" 
