@@ -49,7 +49,7 @@ namespace WpfTestMailSender.ViewModel
 
         public ICommand SaveChangesCommand { get; }
 
-        public ICommand RefreshDataComand { get; }
+       // public ICommand RefreshDataComand { get; }
 
         public MainWindowViewModel(RecipientsDataProvider RecipientsProvider)
         {
