@@ -56,8 +56,13 @@ namespace WpfTestMailSender.ViewModel
             _RecipientsProvider = RecipientsProvider;
 
             RefreshDataCommand = new RelayCommand(OnRefreshDataComandExecuted, CanRefreshDataComandExecuted);
-            SaveChangesCommand = new RelayCommand(OnRefreshDataComandExecuted);
+            SaveChangesCommand = new RelayCommand(OnSaveChangesCommandExecuted);
             //RefreshData();
+        }
+
+        private void OnSaveChangesCommandExecuted()
+        {
+            _RecipientsProvider.SaveChanges();
         }
 
         private bool CanRefreshDataComandExecuted() => true;
